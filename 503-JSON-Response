@@ -1,0 +1,9 @@
+$poolName = connection.getVirtualServer(); #Adjust the Pool name as required, the the script will assume that the Pool name is the same as the vServer name.
+$serviceName = connection.getVirtualServer(); #Adjust the $serviceName name as requested or the Message returned to the client will use the vServer name in the message.
+if (pool.activeNodes ($poolName) <= 0)
+{
+   http.stream.startResponse("503", "application/json", "", "Server:" . $serviceName);
+   $httpResponseBody = "{\n \t \"Status\":\"503\", \n \t \"Message\":\"Service Unavailable\", \n \t \"Code\": \"ServiceUnavailable\" \n }";
+   http.stream.writeResponse($httpResponseBody);
+   http.stream.finishResponse();
+}
