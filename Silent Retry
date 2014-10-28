@@ -1,0 +1,14 @@
+$code = http.getResponseCode();
+if( $code == 404 || $code >= 500 ) { 
+   $message = string.append(http.getMethod()," [", http.getRawURL() ,"] request failed on node ", connection.getNode(), ", from IP: ", request.getRemoteIP(), " with the error code ", $code ,". Retrying request on next available node.");
+ if( request.getRetries() < 2 ) 
+   {
+      # log.warn($message);
+      request.avoidNode( connection.getNode() ); 
+      request.retry();
+ }
+   else
+   {
+      log.error($message);
+   }
+}
