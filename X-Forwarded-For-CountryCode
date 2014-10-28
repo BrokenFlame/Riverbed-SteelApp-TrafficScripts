@@ -1,0 +1,6 @@
+$ip = request.getRemoteIP();
+$reqCountryCode = geo.getCountryCode($ip);
+#log.info("Request from " . $ip. " " . $reqCountryCode . ".");
+if( !http.headerExists( "X-Forwarded-For-CountryCode" ) ) {
+   http.addHeader( "X-Forwarded-For-CountryCode", $reqCountryCode );
+}
