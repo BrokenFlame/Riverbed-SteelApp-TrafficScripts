@@ -1,0 +1,11 @@
+$listenerUrl = "externalapi.moonpig.com:9057";
+$requiredUrl = "externalapi.moonpig.com";
+if(ssl.isSSL())
+{
+   $listenerUrl = string.append("http://", $listenerUrl);
+   $requiredUrl = string.append("https://", $requiredUrl);
+}
+
+$body = http.getResponseBody();
+$body = string.regexsub( $body, $listenerUrl, $requiredUrl, "gi");
+http.setResponseBody( $body );
