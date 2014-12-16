@@ -1,0 +1,8 @@
+$array = [ "X-AspNetMvc-Version", "X-Powered-By", "Server", "X-AspNet-Version" ];
+foreach( $header in $array ) 
+{
+ if( http.responseHeaderExists( $header ) ) 
+   {
+   http.removeResponseHeader( $header );
+  }
+}  
